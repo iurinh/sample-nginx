@@ -1,0 +1,58 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="row">
+      <input type="text" name="user.login" class="col-12" placeholder="Login">
+      <input type="text" name="user.senha" class="col-12" placeholder="Senha">
+      <input type="submit" class="btn btn-success" value="Acessar" onclick="acessar()">
+      <input type="button" class="btn btn-danger" value="Limpar" onclick="limpar()">
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function acessar(e) {
+    let login = document.querySelector('[name="user.login"]').value;
+    let senha = document.querySelector('[name="user.senha"]').value;
+
+    let token = btoa('login=' + login + ';senha=' + senha)
+
+    document.cookie = 'service-login.token=' + token;
+
+    console.log(document.cookie);
+
+    verificar()
+  };
+
+  function limpar() {
+    let login = document.querySelector('[name="user.login"]').value = '';
+    let senha = document.querySelector('[name="user.senha"]').value = '';
+
+    // document.cookie = 'service-login.login=' + login;
+    // document.cookie = 'service-login.senha=' + senha;
+    console.log(document.cookie);
+  }
+
+  function verificar() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (xhttp.readyState === XMLHttpRequest.DONE) {
+        if (this.status < 300) {
+          let url = xhttp.responseText;
+
+          location.replace(url);
+        }
+      }
+    };
+    xhttp.open("GET", "http://iuri.localhost/verify", false);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.withCredentials = true;
+    xhttp.send();
+  }
+
+  verificar();
+
+</script>

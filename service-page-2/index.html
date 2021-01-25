@@ -1,0 +1,43 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+<h1>Página 2</h1>
+<input type="button" class="btn btn-danger" value="Limpar Cookie" onclick="limpar()">
+<input type="button" class="btn btn-primary" value="Verficar Sessão" onclick="verificar()">
+<div id="paragrafo"></div>
+
+<script>
+
+  function limpar() {
+    document.cookie = 'service-login.token=';
+    console.log(document.cookie);
+  }
+
+  function verificar() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (xhttp.readyState === XMLHttpRequest.DONE) {
+        if (this.status >= 300) {
+          let url = xhttp.responseText;
+
+          location.replace(url);
+        } else {
+          document.querySelector('#paragrafo').innerHTML = "Autenticado";
+        }
+
+      }
+    };
+    xhttp.open("GET", "http://iuri.localhost/verify", false);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.withCredentials = true;
+    xhttp.send();
+  }
+
+  function setPage() {
+    document.cookie = 'service-login.url=' + window.location.href;
+  }
+
+  verificar();
+  setPage();
+
+</script>

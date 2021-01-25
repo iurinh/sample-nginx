@@ -1,0 +1,15 @@
+{
+  "name": "nginx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-login": "cd service-login && npm run start",
+    "start-page-1": "cd service-page-1 && npm run start",
+    "start-page-2": "cd service-page-2 && npm run start",
+    "start-verify": "cd service-verify && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
